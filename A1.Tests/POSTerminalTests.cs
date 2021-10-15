@@ -27,7 +27,7 @@ namespace A1.Tests
 				order.Save();
 			}
 
-			Assert.Throws<ArgumentException>("id", () => terminal.EditOrder(OrderTestData.InvalidID));
+			Assert.Throws<ArgumentException>("id", () => terminal.EditOrder(MockDatabase.InvalidID));
 		}
 
 		[Fact]
@@ -57,7 +57,7 @@ namespace A1.Tests
 
 			// Edit the first order
 			POSTerminal.Order currentFirstOrder = terminal.EditOrder(firstOrderID);
-			currentFirstOrder.Items.Add(new BookItem(int.MaxValue, "Extra Book", 99.99));
+			currentFirstOrder.Items.Add(MockDatabase.GetItemByID(7));
 			currentFirstOrder.Save(); // This order should be updated and move to the back of the queue.
 
 			while (!terminal.HasNextOrder())
@@ -98,7 +98,7 @@ namespace A1.Tests
 
 			// Edit the first order
 			POSTerminal.Order currentFirstOrder = terminal.EditOrder(firstOrderID);
-			currentFirstOrder.Items.Add(new BookItem(int.MaxValue, "Extra Book", 99.99));
+			currentFirstOrder.Items.Add(MockDatabase.GetItemByID(7));
 			// currentFirstOrder.Save() is not called so this order will not be updated and will
 			// remain in the front of the queue.
 
@@ -162,7 +162,7 @@ namespace A1.Tests
 				order.Save();
 			}
 
-			Assert.Throws<ArgumentException>("id", () => terminal.PrintOrderStatus(OrderTestData.InvalidID));
+			Assert.Throws<ArgumentException>("id", () => terminal.PrintOrderStatus(MockDatabase.InvalidID));
 		}
 
 		[Fact]

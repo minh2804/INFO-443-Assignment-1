@@ -5,28 +5,9 @@
     </assembly>
     <members>
         <member name="T:A1.POSTerminal">
-             <summary>
-             POSTerminal handles the creation, processing, and modification of customer orders.
-             </summary>
-             <example>
-             <code>
-            POSTerminal terminal = new();
-            
-             // To create a new order:
-            Order newOrder = terminal.CreateOrder();
-            newOrder.Add(new BookItem(1, "Handmaid's Tale", 2.99) { Quantity = 2 });
-            newOrder.Add(new FoodItem(2, "Burger", 2.99)); // Default quantity is 0.
-            newOrder.Save();
-            
-             // To modify an existing order:
-            Order orderToEdit = terminal.CreateOrder(newOrder.ID);
-            orderToEdit.Add(new MaterialItem(3, "Wooden Plank", 9.99));
-            orderToEdit.Save();
-            
-             // To process an existing order:
-            Reciept reciept = terminal.ProcessNextOrder();
-             </code>
-             </example>
+            <summary>
+            POSTerminal handles the creation, processing, and modification of customer orders.
+            </summary>
         </member>
         <member name="M:A1.POSTerminal.CreateOrder">
             <summary>
