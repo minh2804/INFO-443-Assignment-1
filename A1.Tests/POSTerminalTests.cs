@@ -99,8 +99,8 @@ namespace A1.Tests
 			// Edit the first order
 			POSTerminal.Order currentFirstOrder = terminal.EditOrder(firstOrderID);
 			currentFirstOrder.Items.Add(MockDatabase.GetItemByID(7));
-			// currentFirstOrder.Save() is not called so this order will not be updated and will
-			// remain in the front of the queue.
+			// currentFirstOrder.Save() is not called here so this order will never be updated, the
+			// object state and position in the queue will remain unchanged.
 
 			// Only need to assert the first/front of the queue.
 			Reciept reciept = terminal.ProcessNextOrder();
