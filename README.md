@@ -1,4 +1,11 @@
-# Usage example
+# Test Results
+Line coverage: 93.75%
+
+Branch coverage: 78.12%
+
+See the 'coverage.cobertura.xml' file for the full report.
+
+# Example Usage
 ```
 public class Program
 {
