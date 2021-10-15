@@ -136,6 +136,7 @@ namespace A1.Tests
 			// Edit the first order
 			POSTerminal.Order currentFirstOrder = terminal.EditOrder(firstOrderID);
 			currentFirstOrder.Items.Clear();
+			Output.WriteLine(currentFirstOrder.ToJSON());
 			currentFirstOrder.Save(); // This order should be updated and move to the back of the queue.
 
 			while (!terminal.HasNextOrder())

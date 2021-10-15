@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>A1</name>
+    </assembly>
+    <members>
+        <member name="T:A1.POSTerminal">
+             <summary>
+             POSTerminal handles the creation, processing, and modification of customer orders.
+             </summary>
+             <example>
+             <code>
+            POSTerminal terminal = new();
+            
+             // To create a new order:
+            Order newOrder = terminal.CreateOrder();
+            newOrder.Add(new BookItem(1, "Handmaid's Tale", 2.99) { Quantity = 2 });
+            newOrder.Add(new FoodItem(2, "Burger", 2.99)); // Default quantity is 0.
+            newOrder.Save();
+            
+             // To modify an existing order:
+            Order orderToEdit = terminal.CreateOrder(newOrder.ID);
+            orderToEdit.Add(new MaterialItem(3, "Wooden Plank", 9.99));
+            orderToEdit.Save();
+            
+             // To process an existing order:
+            Reciept reciept = terminal.ProcessNextOrder();
+             </code>
+             </example>
+        </member>
+        <member name="M:A1.POSTerminal.CreateOrder">
+            <summary>
+            Creates a new empty order. This is used to build and store a customer's order information.
+            </summary>
+            <returns><see cref="T:A1.POSTerminal.Order"/></returns>
+        </member>
+        <member name="M:A1.POSTerminal.EditOrder(System.Int32)">
+            <summary>
+            Creates an <see cref="T:A1.POSTerminal.Order"/> instance refering to an existing order. This is used to
+            modify an existing order.
+            </summary>
+            <param name="id">An id of an existing order.</param>
+            <returns><see cref="T:A1.POSTerminal.Order"/></returns>
+            <exception cref="T:System.ArgumentException">Order not found.</exception>
+        </member>
+        <member name="M:A1.POSTerminal.HasNextOrder">
+            <summary>
+            Checks whether there is a next pending order to be processed.
+            </summary>
+            <returns><see cref="T:System.Boolean"/></returns>
+        </member>
+        <member name="M:A1.POSTerminal.PrintOrderStatus(System.Int32)">
+            <summary>
+            Prints a report of an existing order.
+            </summary>
+            <param name="id">An id of an existing order.</param>
+            <exception cref="T:System.ArgumentException">Order not found.</exception>
+        </member>
+        <member name="M:A1.POSTerminal.ProcessNextOrder">
+            <summary>
+            Processes the next pending order. Once the order is processed, it will be removed from
+            the queue.
+            </summary>
+            <returns>A reciept of the processed order.</returns>
+        </member>
+        <member name="T:A1.POSTerminal.Order">
+            <summary>
+            A builder class for building a single customer order.
+            </summary>
+        </member>
+        <member name="M:A1.POSTerminal.Order.#ctor(A1.POSTerminal)">
+            <summary>
+            Initializes a new empty order which will be used to take in order from the customer.
+            </summary>
+            <param name="context">A instance of <see cref="T:A1.POSTerminal"/>.</param>
+        </member>
+        <member name="M:A1.POSTerminal.Order.#ctor(A1.POSTerminal.Order)">
+            <summary>
+            Copies from another instance of <see cref="T:A1.POSTerminal.Order"/>. Only the list of items is deep-copied.
+            </summary>
+            <param name="other">A instance of <see cref="T:A1.POSTerminal.Order"/></param>
+        </member>
+        <member name="M:A1.POSTerminal.Order.Save">
+            <summary>
+            Takes a snapshot of the current state and save it to <see cref="T:A1.POSTerminal"/>. Each
+            time <see cref="M:A1.POSTerminal.Order.Save"/> is called, the previous snapshot will be replaced with the
+            new state and moved back to the end of processing queue. If the order contains an
+            empty list of items, then it will be considered as cancelled and remove from the queue.
+            </summary>
+            <remarks>
+            Modifying the current state after saving will not update to the queue. You will need
+            to call <see cref="M:A1.POSTerminal.Order.Save"/> again for the update to take effect.
+            </remarks>
+        </member>
+        <member name="M:A1.POSTerminal.Order.ToJSON">
+            <summary>
+            Gets a JSON formatted string of the current state.
+            </summary>
+            <returns>A JSON formatted string</returns>
+        </member>
+    </members>
+</doc>
